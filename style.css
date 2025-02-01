@@ -1,0 +1,74 @@
+@font-face {
+    font-family: 'digital';
+    src: url('./fonts/digital-7.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    width: 500px;
+    background-color: aqua;
+    align-items: center;
+    gap: 5px;
+}
+
+.display {
+    box-sizing: border-box;
+    flex: 1 1 auto;
+    display: flex;
+    background-color: darkgrey;
+    width: 450px;
+    justify-content: end;
+    align-items: center;
+    font-family: 'digital', sans-serif;
+    font-size: 48px;
+    padding: 0 5px;
+}
+
+.buttons {
+    display: flex;
+    background-color: pink;
+    width: 450px;
+    height: 500px;
+    gap: 10px;
+}
+
+.numbers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    flex: 3;
+}
+
+.number {
+    flex: 1 1 calc(33.33% - 10px);
+    max-width: calc(33.33% - 10px);
+}
+
+.operators {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    background-color: bisque;
+    gap: 5px;
+    justify-content: center;
+    flex: 1;
+}
+
+.operations {
+    flex: 1 1 calc(20% - 10px);
+    max-width: 100%;
+}
