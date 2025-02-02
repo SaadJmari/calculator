@@ -1,7 +1,7 @@
 //Variables
 const numbersContainer = document.querySelector(".numbers")
 const operationsContainer = document.querySelector(".operators")
-const numbersBtn = ["7", "8", "9", "4", "5", "6", "1", "2", "3", ".", "0"]
+const numbersBtn = ["7", "8", "9", "4", "5", "6", "1", "2", "3", ".", "0", "C", "←"]
 const operationsBtn = ["+", "-", "*", "/", "="]
 const display = document.querySelector(".display")
 const btns = document.querySelectorAll("button")
@@ -51,6 +51,20 @@ numbersContainer.addEventListener('click', (event) => {
         display.textContent = ""
     }
     if (target.textContent === "=") {
+        return
+    }
+    //Clear button
+    if (target.textContent == "C") {
+        display.textContent = ""
+        firstNum = undefined
+        secondNum = undefined
+        operator = undefined
+        awaitingSecondNum = false
+        return
+    }
+    //Backspace utton
+    if (target.textContent == "←") {
+        display.textContent = display.textContent.slice(0, -1)
         return
     }
     if (target.classList.contains("number")) {
