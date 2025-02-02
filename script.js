@@ -53,16 +53,21 @@ numbersContainer.addEventListener('click', (event) => {
     if (target.textContent === "=") {
         return
     }
-    if (target.classList == "number" && display.textContent.length < 15) {
-        if (target.textContent == "." && display.textContent.indexOf(".") >= 0) {
-            return
+    if (target.classList.contains("number")) {
+        if (awaitingSecondNum) {
+            display.textContent = target.textContent; // Replace previous result
+            awaitingSecondNum = false; // Reset flag so numbers append normally again
+        } else if (display.textContent.length < 15) {
+            if (target.textContent === "." && display.textContent.includes(".")) {
+                return; // Prevent multiple decimals
+            }
+            display.textContent += target.textContent;
         }
-        display.textContent += target.textContent
     }
 
 })
 
-//Chained operations
+//Normal and chained operations
 operationsContainer.addEventListener('click', (event) => {
     let target = event.target
     if (target.classList == "operations") {
@@ -88,7 +93,7 @@ operationsContainer.addEventListener('click', (event) => {
                 firstNum = undefined
                 secondNum = undefined
                 operator = undefined
-                awaitingSecondNum = false
+                awaitingSecondNum = true
             }
         } else {
             // Operator clicked
@@ -114,6 +119,7 @@ operationsContainer.addEventListener('click', (event) => {
                     secondNum = undefined;
                 } else {
                     firstNum = Number(display.textContent);
+                    result = firstNum
                     display.textContent = "";
                     secondNum = undefined;
                 }
