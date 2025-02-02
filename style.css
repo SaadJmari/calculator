@@ -9,39 +9,78 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 100vh;
     margin: 0;
+    padding: 0;
+
 }
 
 .calculator {
     display: flex;
     flex-direction: column;
-    height: 600px;
     width: 500px;
-    background-color: aqua;
+    height: fit-content;
+    background-color: #123260;
     align-items: center;
-    gap: 5px;
+    justify-content: flex-end;
+    padding-top: 10px;
 }
 
 .display {
     box-sizing: border-box;
     flex: 1 1 auto;
     display: flex;
-    background-color: darkgrey;
-    width: 450px;
+    background-color: #E0EEFB;
+    width: 433px;
+    height: 100px;
     justify-content: end;
     align-items: center;
     font-family: 'digital', sans-serif;
     font-size: 48px;
     padding: 0 5px;
+    margin-bottom: 10px;
 }
 
 .buttons {
+    font-family: Arial, Helvetica, sans-serif;
     display: flex;
-    background-color: pink;
+    flex-direction: column;
     width: 450px;
-    height: 500px;
+    height: 370px;
+    gap: 5px;
+}
+
+.special {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    justify-content: center;
     gap: 10px;
+}
+
+.clear,
+.backspace {
+    width: 105px;
+    height: 50px;
+    font-size: 20px;
+    background-color: #3C91C7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.clear:hover,
+.backspace:hover {
+    background-color: #3581b1;
+}
+
+.numbers-operators {
+    display: flex;
+    width: 100%;
+    gap: 5px;
 }
 
 .numbers {
@@ -49,26 +88,40 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 5px;
-    width: 100%;
-    flex: 3;
+    width: 75%;
 }
 
 .number {
-    flex: 1 1 calc(33.33% - 10px);
-    max-width: calc(33.33% - 10px);
+    width: calc(33.33% - 5px);
+    height: 60px;
+    font-size: 30px;
+    background-color: #95C5DE;
+    border: 2px solid #d9d9d9;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
 }
 
 .operators {
     display: flex;
     flex-direction: column;
-    height: 500px;
-    background-color: bisque;
+    justify-content: space-between;
+    width: 20%;
     gap: 5px;
-    justify-content: center;
-    flex: 1;
 }
 
 .operations {
-    flex: 1 1 calc(20% - 10px);
-    max-width: 100%;
+    width: 100%;
+    height: 50px;
+    font-size: 24px;
+    background-color: #5A9ABE;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.operations:hover {
+    background-color: #4e84a3;
 }

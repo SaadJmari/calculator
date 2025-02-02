@@ -1,17 +1,25 @@
 //Variables
 const numbersContainer = document.querySelector(".numbers")
 const operationsContainer = document.querySelector(".operators")
-const numbersBtn = ["7", "8", "9", "4", "5", "6", "1", "2", "3", ".", "0", "C", "←"]
+const special = document.querySelector(".special")
+const numbersBtn = ["7", "8", "9", "4", "5", "6", "1", "2", "3", ".", "0"]
 const operationsBtn = ["+", "-", "*", "/", "="]
 const display = document.querySelector(".display")
-const btns = document.querySelectorAll("button")
 let firstNum, secondNum, operator, result
 let awaitingSecondNum = false;
 
 
-
-
 //Creating the calculator's buttons
+const clearBtn = document.createElement("button")
+clearBtn.classList.add("clear")
+clearBtn.textContent = "C"
+special.appendChild(clearBtn)
+
+const backspaceBtn = document.createElement("button")
+backspaceBtn.classList.add("backspace")
+backspaceBtn.textContent = "←"
+special.appendChild(backspaceBtn)
+
 numbersBtn.forEach(num => {
     const button = document.createElement("button")
     button.classList.add("number")
@@ -45,14 +53,8 @@ const division = function (a, b) {
 }
 
 //Hundle numbers display
-numbersContainer.addEventListener('click', (event) => {
+special.addEventListener('click', (event) => {
     let target = event.target
-    if (display.textContent == "error!") {
-        display.textContent = ""
-    }
-    if (target.textContent === "=") {
-        return
-    }
     //Clear button
     if (target.textContent == "C") {
         display.textContent = ""
@@ -65,6 +67,16 @@ numbersContainer.addEventListener('click', (event) => {
     //Backspace utton
     if (target.textContent == "←") {
         display.textContent = display.textContent.slice(0, -1)
+        return
+    }
+})
+
+numbersContainer.addEventListener('click', (event) => {
+    let target = event.target
+    if (display.textContent == "error!") {
+        display.textContent = ""
+    }
+    if (target.textContent === "=") {
         return
     }
     if (target.classList.contains("number")) {
