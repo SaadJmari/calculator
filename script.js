@@ -1,11 +1,13 @@
 //Variables
 const numbersContainer = document.querySelector(".numbers")
 const operationsContainer = document.querySelector(".operators")
-const numbersBtn = ["7", "8", "9", "4", "5", "6", "1", "2", "3", ".", "0", "="]
-const operationsBtn = ["+", "-", "*", "/"]
+const numbersBtn = ["7", "8", "9", "4", "5", "6", "1", "2", "3", ".", "0"]
+const operationsBtn = ["+", "-", "*", "/", "="]
 const display = document.querySelector(".display")
 const btns = document.querySelectorAll("button")
 let firstNum, secondNum, operator, result
+let awaitingSecondNum = false;
+
 
 
 
@@ -45,35 +47,29 @@ const division = function (a, b) {
 //Hundle numbers display
 numbersContainer.addEventListener('click', (event) => {
     let target = event.target
+    if (display.textContent == "error!") {
+        display.textContent = ""
+    }
+    if (target.textContent === "=") {
+        return
+    }
     if (target.classList == "number" && display.textContent.length < 15) {
         if (target.textContent == "." && display.textContent.indexOf(".") >= 0) {
             return
         }
         display.textContent += target.textContent
     }
+
 })
 
-//Storing numbers and operators
+//Chained operations
 operationsContainer.addEventListener('click', (event) => {
     let target = event.target
     if (target.classList == "operations") {
-        if (firstNum != undefined) {
-            secondNum = Number(display.textContent)
-        }
-        firstNum = Number(display.textContent)
-        operator = target.textContent
-        display.textContent = ""
-    }
-})
-
-btns.forEach(button => {
-    button.addEventListener('click', (event) => {
-        const target = event.target
-
         if (target.textContent == "=") {
-            if (firstNum != undefined && display.textContent != "") {
+            // Equals operation: calculate the result
+            if (firstNum !== undefined && display.textContent !== "") {
                 secondNum = Number(display.textContent)
-
                 switch (operator) {
                     case '+':
                         result = sum(firstNum, secondNum)
@@ -91,8 +87,39 @@ btns.forEach(button => {
                 display.textContent = result
                 firstNum = undefined
                 secondNum = undefined
+                operator = undefined
+                awaitingSecondNum = false
             }
+        } else {
+            // Operator clicked
+            if (!awaitingSecondNum) { // Only calculate if a number was entered
+                if (firstNum !== undefined) {
+                    secondNum = Number(display.textContent);
+                    switch (operator) {
+                        case '+':
+                            result = sum(firstNum, secondNum);
+                            break;
+                        case '-':
+                            result = substraction(firstNum, secondNum);
+                            break;
+                        case '*':
+                            result = multiply(firstNum, secondNum);
+                            break;
+                        case '/':
+                            result = division(firstNum, secondNum);
+                            break;
+                    }
+                    display.textContent = result;
+                    firstNum = result;
+                    secondNum = undefined;
+                } else {
+                    firstNum = Number(display.textContent);
+                    display.textContent = "";
+                    secondNum = undefined;
+                }
+            }
+            operator = target.textContent;
+            awaitingSecondNum = true; // Waiting for the next input
         }
-    })
-
+    }
 })
